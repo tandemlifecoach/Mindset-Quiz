@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's Your Mindset Block? | Tandem Life Coach</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EEF4FA;
+    --navy: #1B3A5C;
+    --blue: #2C6FAC;
+    --blue-mid: #4A8DC4;
+    --blue-light: #A8C8E8;
+    --blue-pale: #D6E8F5;
+    --white: #FFFFFF;
+    --text-muted: #5A7A96;
+    --soft-bg: #DBECf7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--bg);
+    color: var(--navy);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    right: -15%;
+    width: 55vw;
+    height: 55vw;
+    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    background: radial-gradient(ellipse, rgba(44,111,172,0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -10%;
+    left: -10%;
+    width: 45vw;
+    height: 45vw;
+    border-radius: 40% 60% 30% 70% / 60% 40% 70% 30%;
+    background: radial-gradient(ellipse, rgba(74,141,196,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* LOGO BAR */
+  .logo-bar {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .logo-bar img {
+    height: 60px;
+    width: auto;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 44px;
+    animation: fadeUp 0.7s 0.05s ease both;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    border: 1px solid var(--blue-light);
+    background: var(--blue-pale);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 6vw, 2.9rem);
+    line-height: 1.2;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--blue);
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 480px;
+    margin: 0 auto 14px;
+  }
+
+  .byline {
+    font-size: 13px;
+    color: var(--blue-mid);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    margin-bottom: 36px;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--blue-pale);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--navy), var(--blue-mid));
+    border-radius: 100px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 44px 40px;
+    box-shadow: 0 4px 40px rgba(27,58,92,0.09), 0 1px 4px rgba(27,58,92,0.05);
+    animation: fadeUp 0.6s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--navy), var(--blue), var(--blue-mid));
+  }
+
+  .question-num {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+    line-height: 1.5;
+    color: var(--navy);
+    margin-bottom: 30px;
+  }
+
+  /* OPTIONS */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 15px 20px;
+    border: 1.5px solid var(--blue-pale);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    background: var(--bg);
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--navy);
+    line-height: 1.5;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .option::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(44,111,172,0.06), rgba(74,141,196,0.04));
+    opacity: 0;
+    transition: opacity 0.22s;
+  }
+
+  .option:hover {
+    border-color: var(--blue-mid);
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(44,111,172,0.12);
+  }
+
+  .option:hover::before { opacity: 1; }
+
+  .option.selected {
+    border-color: var(--blue);
+    background: rgba(44,111,172,0.06);
+    transform: translateX(4px);
+  }
+
+  .option-dot {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--blue-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+    transition: all 0.22s;
+    background: var(--white);
+  }
+
+  .option.selected .option-dot {
+    border-color: var(--blue);
+    background: var(--blue);
+  }
+
+  .option.selected .option-dot::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    gap: 16px;
+  }
+
+  .btn-back {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 0;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-back:hover { color: var(--navy); }
+  .btn-back.hidden { visibility: hidden; }
+
+  .btn-next {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: all 0.22s;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .btn-next.active { opacity: 1; pointer-events: all; }
+
+  .btn-next.active:hover {
+    background: var(--blue);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(44,111,172,0.32);
+  }
+
+  /* RESULT */
+  .result-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 48px 40px;
+    box-shadow: 0 4px 40px rgba(27,58,92,0.09);
+    text-align: center;
+    animation: fadeUp 0.7s ease both;
+    display: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--navy), var(--blue), var(--blue-mid));
+  }
+
+  .result-icon {
+    font-size: 52px;
+    margin-bottom: 18px;
+    display: block;
+    animation: pop 0.5s 0.3s ease both;
+    transform: scale(0);
+  }
+
+  .result-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue-mid);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .result-type {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 5vw, 2.1rem);
+    color: var(--navy);
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+
+  .result-desc {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.78;
+    margin-bottom: 28px;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .result-gifts {
+    background: var(--soft-bg);
+    border-radius: 16px;
+    padding: 22px 24px;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+
+  .result-gifts h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    margin-bottom: 14px;
+    color: var(--navy);
+  }
+
+  .gift-item {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .gift-item span:first-child { color: var(--blue); font-weight: 600; }
+
+  /* EMAIL SECTION */
+  .email-section {
+    border-top: 1px solid var(--blue-pale);
+    padding-top: 28px;
+    margin-top: 4px;
+  }
+
+  .email-section p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.65;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  input[type="text"], input[type="email"] {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    padding: 14px 18px;
+    border: 1.5px solid var(--blue-pale);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--navy);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  input::placeholder { color: var(--blue-light); }
+  input:focus { border-color: var(--blue); }
+
+  .btn-submit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    background: linear-gradient(135deg, var(--blue), var(--navy));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 22px;
+    cursor: pointer;
+    transition: all 0.22s;
+    white-space: nowrap;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(44,111,172,0.35);
+  }
+
+  .privacy {
+    font-size: 12px;
+    color: var(--blue-light);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* SUCCESS */
+  .success-msg {
+    text-align: center;
+    padding: 20px;
+    display: none;
+  }
+
+  .success-msg .check { font-size: 36px; margin-bottom: 12px; }
+  .success-msg h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: var(--navy);
+  }
+  .success-msg p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+  /* FOOTER */
+  .footer-brand {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--blue-light);
+    letter-spacing: 0.04em;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .footer-brand a { color: var(--blue-mid); text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    from { transform: scale(0); }
+    60% { transform: scale(1.15); }
+    to { transform: scale(1); }
+  }
+  .slide-in { animation: fadeUp 0.4s ease both; }
+
+  @media (max-width: 520px) {
+    .card, .result-card { padding: 32px 22px; }
+    .input-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- LOGO -->
+  <div class="logo-bar">
+    <img src="https://images.squarespace-cdn.com/content/v1/601a280a5f83942470de91c8/2b98855c-524b-4a39-bcf4-694de08e4d1a/Tandem-Life-Coach-logo-blue.png?format=1500w" alt="Tandem Life Coach" />
+  </div>
+
+  <!-- HEADER -->
+  <div class="header" id="quizHeader">
+    <div class="badge">✦ Free 2-Minute Quiz</div>
+    <h1>What's Your Hidden<br><em>Mindset Block?</em></h1>
+    <p class="subtitle">Discover the invisible pattern keeping you stuck — and what to do about it. Answer 5 questions and Elizabeth will help you understand your unique mindset type.</p>
+    <p class="byline">A free resource from Tandem Life Coach · Partner in Pedaling</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-meta">
+      <span id="progressLabel">Question 1 of 5</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <!-- QUIZ CARD -->
+  <div class="card" id="quizCard">
+
+    <!-- Start screen -->
+    <div id="startScreen">
+      <div class="question-num">Ready to ride?</div>
+      <div class="question-text">You don't have to keep pedaling alone. Let's figure out what's really in your way — in just 5 questions.</div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:28px;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-muted);">
+          <span style="color:var(--blue); font-weight:600;">✓</span> Only 5 questions
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-muted);">
+          <span style="color:var(--blue); font-weight:600;">✓</span> Takes 2 minutes
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-muted);">
+          <span style="color:var(--blue); font-weight:600;">✓</span> Personalized result
+        </div>
+      </div>
+      <button class="btn-next active" onclick="startQuiz()" style="width:100%; border-radius:14px; padding:16px; font-size:16px;">
+        Start the Quiz →
+      </button>
+    </div>
+
+    <!-- Question screen -->
+    <div id="questionScreen" style="display:none">
+      <div class="question-num" id="questionNum">Question 1 of 5</div>
+      <div class="question-text" id="questionText"></div>
+      <div class="options" id="optionsContainer"></div>
+      <div class="nav">
+        <button class="btn-back hidden" id="backBtn" onclick="prevQuestion()">← Back</button>
+        <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div class="result-card" id="resultCard">
+    <span class="result-icon" id="resultIcon"></span>
+    <div class="result-label">Your Mindset Type</div>
+    <div class="result-type" id="resultType"></div>
+    <div class="result-desc" id="resultDesc"></div>
+
+    <div class="result-gifts">
+      <h4>What this means for you:</h4>
+      <div id="resultGifts"></div>
+    </div>
+
+    <div class="email-section">
+      <p>Get your <strong>full personalized breakdown</strong> + a free audio guide from Elizabeth to help you start shifting this pattern — delivered straight to your inbox.</p>
+      <div class="input-group">
+        <input type="text" id="nameInput" placeholder="Your first name" />
+        <div class="input-row">
+          <input type="email" id="emailInput" placeholder="Your best email address" />
+          <button class="btn-submit" onclick="submitEmail()">Send it! →</button>
+        </div>
+      </div>
+      <p class="privacy">🔒 No spam, ever. Unsubscribe anytime.</p>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <div class="check">🚲</div>
+      <h3>You're in!</h3>
+      <p>Check your inbox — your full breakdown and Elizabeth's free audio guide are on their way. Let's ride!</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-brand">
+    <a href="https://www.tandemlifecoach.com" target="_blank">tandemlifecoach.com</a> · Elizabeth · Partner in Pedaling
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    text: "When you set a big goal for yourself, what usually happens?",
+    options: [
+      { text: "I get excited at first, then slowly lose momentum", type: "A" },
+      { text: "I overthink it so much, I never really start", type: "B" },
+      { text: "I start strong but sabotage myself when I get close", type: "C" },
+      { text: "I achieve it, but it never feels like enough", type: "D" }
+    ]
+  },
+  {
+    text: "When something goes wrong, your first thought is usually...",
+    options: [
+      { text: "\"I'll figure it out later\" — but later never comes", type: "A" },
+      { text: "\"I knew I wasn't ready for this\"", type: "B" },
+      { text: "\"I probably caused this somehow\"", type: "C" },
+      { text: "\"I need to work harder to fix it\"", type: "D" }
+    ]
+  },
+  {
+    text: "How do you feel about asking for help or support?",
+    options: [
+      { text: "I'm fine with it — I just don't follow through on the advice", type: "A" },
+      { text: "Very uncomfortable — I don't want to look incompetent", type: "B" },
+      { text: "I feel guilty for needing it in the first place", type: "C" },
+      { text: "I prefer to handle everything myself", type: "D" }
+    ]
+  },
+  {
+    text: "What does your inner critic sound like most often?",
+    options: [
+      { text: "\"You'll do it tomorrow.\" (You don't.)", type: "A" },
+      { text: "\"Who do you think you are to do this?\"", type: "B" },
+      { text: "\"You don't deserve good things.\"", type: "C" },
+      { text: "\"You're still not good enough.\"", type: "D" }
+    ]
+  },
+  {
+    text: "When you imagine the life you truly want, you feel...",
+    options: [
+      { text: "Excited, but distracted by everything else around you", type: "A" },
+      { text: "Like it's for other people — not really for you", type: "B" },
+      { text: "Nervous, like something bad might happen if you get it", type: "C" },
+      { text: "Like you'd finally be worthy — once you achieve enough", type: "D" }
+    ]
+  }
+];
+
+const results = {
+  A: {
+    icon: "🌀",
+    type: "The Drifter",
+    desc: "Your block isn't laziness — it's a disconnection from your deeper why. You have real dreams, but they live in the future while your attention gets pulled into the now. Elizabeth helps people just like you build an anchor to their vision so the wind stays at their back.",
+    gifts: [
+      { icon: "✦", text: "You're highly adaptable, creative, and full of potential" },
+      { icon: "✦", text: "Your block: Staying connected to your vision long-term" },
+      { icon: "✦", text: "Your shift: Building identity-level habits, not just goals" }
+    ]
+  },
+  B: {
+    icon: "🪞",
+    type: "The Impostor",
+    desc: "You're more capable than you believe — but a persistent voice tells you you're not ready, not qualified, not enough. This is one of the most common patterns Elizabeth sees. The antidote isn't more achievement. It's rebuilding your inner authority from the ground up.",
+    gifts: [
+      { icon: "✦", text: "You're thoughtful, deeply empathetic, and growth-oriented" },
+      { icon: "✦", text: "Your block: A deep belief that you don't truly belong" },
+      { icon: "✦", text: "Your shift: Building unshakeable confidence from the inside out" }
+    ]
+  },
+  C: {
+    icon: "🌊",
+    type: "The Self-Saboteur",
+    desc: "You have real gifts — but something in you pulls the brakes just before the breakthrough. Elizabeth specializes in uncovering the root belief driving this pattern so you can stop getting in your own way and finally receive the good things you've worked so hard for.",
+    gifts: [
+      { icon: "✦", text: "You're deeply caring, perceptive, and self-aware" },
+      { icon: "✦", text: "Your block: An unconscious upper limit on your own happiness" },
+      { icon: "✦", text: "Your shift: Healing the belief that says you don't deserve more" }
+    ]
+  },
+  D: {
+    icon: "🏔️",
+    type: "The Achiever Trap",
+    desc: "From the outside, you look successful. Inside, there's a relentless treadmill — achieve more, be more, prove more. Elizabeth has helped countless high-achievers discover that their value was never tied to their performance. That truth changes everything.",
+    gifts: [
+      { icon: "✦", text: "You're driven, resilient, and genuinely capable" },
+      { icon: "✦", text: "Your block: Tying your self-worth to external achievement" },
+      { icon: "✦", text: "Your shift: Decoupling your identity from what you produce" }
+    ]
+  }
+};
+
+let currentQ = 0;
+let answers = [];
+let selected = null;
+
+function startQuiz() {
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('questionScreen').style.display = 'block';
+  document.getElementById('progressWrap').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('questionNum').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('questionText').textContent = q.text;
+
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  container.classList.add('slide-in');
+  setTimeout(() => container.classList.remove('slide-in'), 400);
+
+  selected = answers[currentQ] ?? null;
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option' + (selected === i ? ' selected' : '');
+    btn.innerHTML = `<div class="option-dot"></div><span>${opt.text}</span>`;
+    btn.onclick = () => selectOption(i);
+    container.appendChild(btn);
+  });
+
+  updateNav();
+  updateProgress();
+}
+
+function selectOption(idx) {
+  selected = idx;
+  answers[currentQ] = idx;
+  document.querySelectorAll('.option').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+  document.getElementById('nextBtn').classList.add('active');
+}
+
+function updateNav() {
+  const backBtn = document.getElementById('backBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  backBtn.classList.toggle('hidden', currentQ === 0);
+  nextBtn.classList.toggle('active', selected !== null);
+  nextBtn.textContent = currentQ === questions.length - 1 ? 'See My Result →' : 'Continue →';
+}
+
+function updateProgress() {
+  const pct = Math.round((currentQ / questions.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+function nextQuestion() {
+  if (selected === null) return;
+  if (currentQ < questions.length - 1) {
+    currentQ++;
+    selected = answers[currentQ] ?? null;
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    currentQ--;
+    selected = answers[currentQ] ?? null;
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  const counts = { A: 0, B: 0, C: 0, D: 0 };
+  answers.forEach((ansIdx, qIdx) => {
+    const type = questions[qIdx].options[ansIdx].type;
+    counts[type]++;
+  });
+  const topType = Object.entries(counts).sort((a,b) => b[1]-a[1])[0][0];
+  const r = results[topType];
+
+  document.getElementById('quizHeader').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('quizCard').style.display = 'none';
+
+  document.getElementById('resultIcon').textContent = r.icon;
+  document.getElementById('resultType').textContent = r.type;
+  document.getElementById('resultDesc').textContent = r.desc;
+
+  const giftsEl = document.getElementById('resultGifts');
+  giftsEl.innerHTML = r.gifts.map(g =>
+    `<div class="gift-item"><span>${g.icon}</span><span>${g.text}</span></div>`
+  ).join('');
+
+  document.getElementById('resultCard').style.display = 'block';
+
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = 'Complete!';
+  document.getElementById('progressPct').textContent = '100%';
+}
+
+function submitEmail() {
+  const name = document.getElementById('nameInput').value.trim();
+  const email = document.getElementById('emailInput').value.trim();
+  if (!name || !email || !email.includes('@')) {
+    alert('Please enter your name and a valid email address.');
+    return;
+  }
+  document.querySelector('.email-section').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+</script>
+</body>
+</html>
